@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>GeoSignal — Local SEO audit &amp; model lab</title>
+<meta name="description" content="Scan a website's local/geo SEO signals, learn why each one matters, and compare small local AI models. Runs entirely on your machine.">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="30" height="30">
+        <circle cx="16" cy="16" r="13.5" fill="none" stroke="currentColor" stroke-width="2" opacity=".35"/>
+        <circle cx="16" cy="16" r="7" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <circle cx="16" cy="16" r="2.6" fill="currentColor"/>
+        <path d="M16 2.5v4M16 25.5v4M2.5 16h4M25.5 16h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <div class="brand-text">
+      <h1>GeoSignal</h1>
+      <p>Local SEO audit &amp; small-model lab</p>
+    </div>
+  </div>
+  <div class="topbar-meta">
+    <button id="help-toggle" class="chip help-toggle" type="button" aria-pressed="true" title="Show or hide the help buttons">Tips on</button>
+    <span id="ai-chip" class="chip">Checking local models…</span>
+    <span class="chip quiet">100% local</span>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Sections">
+  <button class="tab active" data-tab="scan" role="tab" aria-selected="true">Quick check</button>
+  <button class="tab" data-tab="report" role="tab" aria-selected="false">Report</button>
+  <button class="tab" data-tab="lab" role="tab" aria-selected="false">Model lab</button>
+  <button class="tab" data-tab="standards" role="tab" aria-selected="false">Standards</button>
+  <button class="tab" data-tab="updates" role="tab" aria-selected="false">Updates</button>
+</nav>
+
+<main>
+  <section id="tab-scan" class="tab-panel active" role="tabpanel">
+    <div class="hero">
+      <p class="eyebrow">Geo / local search</p>
+      <h2>Why does this business show up — or not — where it operates?</h2>
+      <p class="lede">Crawl a site, score the signals Google actually documents, and read the reasoning behind every result. Then let small local models review the crawl and compare their judgement.</p>
+    </div>
+
+    <form id="scan-form" class="card scan-form" data-help="scan_form" novalidate>
+      <div class="field span-2" data-help="field_url">
+        <label for="url">Website address</label>
+        <input id="url" name="url" type="text" placeholder="example.com" autocomplete="url" spellcheck="false" required>
+      </div>
+      <div class="field" data-help="field_keyword">
+        <label for="keyword">Primary service <span>optional</span></label>
+        <input id="keyword" name="keyword" type="text" placeholder="emergency plumber">
+      </div>
+      <div class="field" data-help="field_city">
+        <label for="city">City or service area <span>optional</span></label>
+        <input id="city" name="city" type="text" placeholder="Austin, TX">
+      </div>
+      <div class="field" data-help="field_pages">
+        <label for="max-pages">Pages to crawl</label>
+        <select id="max-pages">
+          <option value="1">1 (homepage only)</option>
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+      </div>
+      <div class="field" data-help="field_mode">
+        <label for="mode">Model run mode</label>
+        <select id="mode">
+          <option value="parallel" selected>Parallel (compare at once)</option>
+          <option value="sequential">Sequential (one at a time)</option>
+        </select>
+      </div>
+      <div class="field span-2" data-help="field_models">
+        <label>Local models <span>optional — used for the cross-check</span></label>
+        <div id="model-picker" class="model-picker" aria-live="polite"></div>
+        <p id="model-hint" class="hint">Checking which models are installed locally…</p>
+      </div>
+      <div class="form-actions">
+        <button id="scan-submit" class="btn primary" type="submit">Run quick check</button>
+        <span id="scan-status" class="status" role="status"></span>
+      </div>
+    </form>
+
+    <div id="quick-result"></div>
+
+    <div class="grid-2">
+      <section class="card pad" data-help="recent_checks">
+        <h3>Recent checks</h3>
+        <p class="hint">Stored on this machine only.</p>
+        <div id="recent-scans" class="recent-list"><p class="hint">No scans yet.</p></div>
+      </section>
+      <section class="card pad" data-help="how_works">
+        <h3>How this works</h3>
+        <ol class="steps">
+          <li><strong>Crawl.</strong> The homepage plus internal links (2 clicks deep), respecting robots.txt.</li>
+          <li><strong>Score.</strong> 34 documented local checks across entity, on-page, linking, technical and trust.</li>
+          <li><strong>Explain.</strong> Every pass and failure carries the mechanism and the Google source, so the report teaches as it audits.</li>
+          <li><strong>Cross-check.</strong> Optionally ask 1–3 small local models; results are curated by agreement, not by vibes.</li>
+        </ol>
+        <p class="hint">Not affiliated with Google. Scores estimate ranking readiness, not a ranking position.</p>
+      </section>
+    </div>
+  </section>
+
+  <section id="tab-report" class="tab-panel" role="tabpanel">
+    <div id="report-root">
+      <div class="empty-state card">
+        <h2>No report yet</h2>
+        <p>Run a quick check and the full report appears here: score, category breakdown, what is working, what to fix first, and the reasoning behind each signal.</p>
+        <button class="btn primary" data-action="go-scan">Run a quick check</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-lab" class="tab-panel" role="tabpanel">
+    <div id="lab-root"></div>
+  </section>
+
+  <section id="tab-standards" class="tab-panel" role="tabpanel">
+    <div id="standards-root"></div>
+  </section>
+
+  <section id="tab-updates" class="tab-panel" role="tabpanel">
+    <div id="updates-root"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>GeoSignal runs locally. Crawl data and model comparisons stay in <code>data/</code>. Reports are estimates of documented signals, not Google rankings.</p>
+</footer>
+
+<div id="help-modal" class="help-backdrop" hidden>
+  <div class="help-card" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <div class="help-head">
+      <div>
+        <p class="eyebrow" id="help-kicker">Quick explainer</p>
+        <h3 id="help-title"></h3>
+      </div>
+      <button type="button" class="icon-btn" data-help-close aria-label="Close help">×</button>
+    </div>
+    <div id="help-body" class="help-body"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="/app.js" type="module"></script>
+</body>
+</html>

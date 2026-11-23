@@ -1,0 +1,15 @@
+GeoSignal Local SEO
+Copyright (c) 2026 GeoSignal contributors
+
+GeoSignal is licensed under the MIT License. See LICENSE.
+
+This product includes software developed by third parties:
+
+- llama.cpp and ggml, Copyright (c) 2023-2026 The ggml authors, licensed under the MIT License. The complete notice is in THIRD_PARTY_LICENSES.md.
+- Rust crates listed in THIRD_PARTY_LICENSES.md, under the licenses and copyright notices recorded there.
+
+Optional GGUF model weights are downloaded separately and are not included in GeoSignal:
+
+- Qwen 2.5 1.5B: Apache License 2.0.
+- Llama 3.2 3B: Llama 3.2 Community License, Copyright © Meta Platforms, Inc. All Rights Reserved. See licenses/llama-3.2-community-license.txt.
+- Gemma 2 2B: Gemma Terms of Use.

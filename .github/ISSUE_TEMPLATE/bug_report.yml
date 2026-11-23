@@ -1,0 +1,45 @@
+name: Bug report
+description: Report a reproducible GeoSignal problem
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include customer data, model weights or API keys. For security issues, use the private security advisory instead."
+  - type: dropdown
+    id: mode
+    attributes:
+      label: How are you running GeoSignal?
+      options:
+        - Native macOS app
+        - Local server
+        - Docker
+        - Hugging Face Space
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Shown in the app or the startup output.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or errors
+      description: Remove paths, tokens and customer data first.
+    validations:
+      required: false
