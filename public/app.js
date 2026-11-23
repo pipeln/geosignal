@@ -1445,7 +1445,7 @@ function renderUpdates() {
                     : '<span class="hint">No newer release published in this manifest.</span>'
                 }
               </div>`
-            : `<p class="hint">Current version: ${esc(update.appVersion || '1.0.0')}. Check the update source for release information.</p>`
+            : `<p class="hint">Current version: ${esc(update.appVersion || '0.1.0')}. Check the update source for release information.</p>`
         }
       </section>
     </div>

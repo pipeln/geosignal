@@ -1,6 +1,6 @@
 [package]
 name = "geosignal"
-version = "1.0.0"
+version = "0.1.0"
 edition = "2021"
 description = "Local-first geo / local SEO auditor with a small-model AI lab"
 license = "MIT"

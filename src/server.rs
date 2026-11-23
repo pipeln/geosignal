@@ -226,7 +226,7 @@ fn route(
     assets: &Path,
 ) -> Reply {
     if path == "/api/health" {
-        return json_reply(json!({ "ok": true, "version": "1.0.0" }), 200);
+        return json_reply(json!({ "ok": true, "version": "0.1.0" }), 200);
     }
 
     if path == "/api/models" {
